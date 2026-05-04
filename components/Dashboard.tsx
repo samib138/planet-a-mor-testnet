@@ -122,68 +122,36 @@ function EntryBadge({ className = "w-16 h-16 sm:w-20 sm:h-20" }: { className?: s
     >
       {/* Outer thin ring */}
       <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="0.8" opacity="0.35" />
-      {/* Dashed mid ring — seal feel */}
+      {/* Dashed mid ring */}
       <circle cx="50" cy="50" r="43" stroke="currentColor" strokeWidth="0.5" opacity="0.5" strokeDasharray="1.5 2.5" />
       {/* Inner filled circle */}
       <circle cx="50" cy="50" r="36" fill="currentColor" fillOpacity="0.08" stroke="currentColor" strokeWidth="0.6" strokeOpacity="0.6" />
 
-      {/* Ticket stub — centered, rotated -15deg for movement */}
-      <g transform="rotate(-15 50 50)">
-        {/* Ticket body */}
-        <path
-          d="M30 42
-             a3 3 0 0 1 3 -3
-             h11
-             a2 2 0 0 0 2 2
-             a2 2 0 0 0 -2 2
-             v6
-             a2 2 0 0 0 2 2
-             a2 2 0 0 0 -2 2
-             h-11
-             a3 3 0 0 1 -3 -3
-             z
-             M67 39
-             h0
-             a3 3 0 0 1 3 3
-             v3
-             a2 2 0 0 0 -2 2
-             a2 2 0 0 0 2 2
-             v3
-             a3 3 0 0 1 -3 3
-             h-13
-             a2 2 0 0 0 -2 -2
-             a2 2 0 0 0 2 -2
-             v-6
-             a2 2 0 0 0 -2 -2
-             a2 2 0 0 0 2 -2
-             z"
-          fill="currentColor"
-          fillOpacity="0.18"
-          stroke="currentColor"
-          strokeWidth="0.8"
-          strokeLinejoin="round"
-        />
-        {/* Perforation dashes — vertical line down the middle */}
-        <line
-          x1="50" y1="42"
-          x2="50" y2="58"
-          stroke="currentColor"
-          strokeWidth="0.6"
-          strokeDasharray="1 1.2"
-          opacity="0.7"
-        />
-        {/* "VRF" text on stub — tiny, lowercase tracking */}
-        <text
-          x="38" y="53"
-          fontSize="4.5"
-          fontFamily="ui-monospace, monospace"
-          fill="currentColor"
-          opacity="0.85"
-          letterSpacing="0.3"
-        >
-          VRF
-        </text>
-      </g>
+      {/* Three-tier pine tree silhouette */}
+      <path
+        d="M50 22 L42 38 L46 38 L36 50 L42 50 L30 64 L70 64 L58 50 L64 50 L54 38 L58 38 Z"
+        fill="currentColor"
+        fillOpacity="0.22"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      {/* Trunk */}
+      <rect
+        x="47" y="64" width="6" height="10"
+        fill="currentColor"
+        fillOpacity="0.35"
+        stroke="currentColor"
+        strokeWidth="0.9"
+      />
+      {/* Ground line */}
+      <line
+        x1="28" y1="74" x2="72" y2="74"
+        stroke="currentColor"
+        strokeWidth="0.9"
+        opacity="0.55"
+      />
 
       {/* Cardinal dots */}
       <circle cx="50" cy="4" r="1.2" fill="currentColor" opacity="0.7" />
@@ -193,7 +161,6 @@ function EntryBadge({ className = "w-16 h-16 sm:w-20 sm:h-20" }: { className?: s
     </svg>
   );
 }
-
 // ───────────────────────────────────────────────────────────
 // Tab definitions
 // ───────────────────────────────────────────────────────────
