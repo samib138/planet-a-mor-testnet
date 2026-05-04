@@ -300,7 +300,7 @@ export default function Dashboard() {
                         <div className="flex justify-between items-center">
                           <span className="label-small text-white/50">Transaction</span>
                           {d.txHash ? (
-                            
+                            <a
                               href={`${CHAIN.explorer}/tx/${d.txHash}`}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -346,7 +346,7 @@ export default function Dashboard() {
                       {totalTrees} tree{totalTrees > 1 ? "s" : ""} donation
                     </p>
                     {txHash && (
-                      
+                      <a
                         href={`${CHAIN.explorer}/tx/${txHash}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -441,7 +441,7 @@ export default function Dashboard() {
                     call this land home. Your contribution supports their ongoing
                     work.
                   </p>
-                  
+                  <a
                     href={LINKS.website}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -455,7 +455,7 @@ export default function Dashboard() {
               {/* Share button — opens X intent. Testnet-tagged in copy. */}
               {totalTrees > 0 && (
                 <div className="mt-6 flex justify-center">
-                  
+                  <a
                     href={shareUrl}
                     target="_blank"
                     rel="noopener noreferrer"
