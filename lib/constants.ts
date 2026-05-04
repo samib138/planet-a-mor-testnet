@@ -84,12 +84,12 @@ export const LINKS = {
 // ─── Visual Assets ─────────────────────────────────────────
 export const IMAGES = {
   hero: process.env.NEXT_PUBLIC_HERO_IMAGE || "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=2000&q=80",
-  dashboard: process.env.NEXT_PUBLIC_DASHBOARD_IMAGE || "https://images.unsplash.com/photo-1448375240586-882707db888b?w=2000&q=80",
+  dashboard: process.env.NEXT_PUBLIC_DASHBOARD_IMAGE || "https://images.unsplash.com/photo-1657463420259-1c92c609f89e?w=2000&q=80",
   // Story photos woven into sections
-  story1: "https://images.unsplash.com/photo-1536147116438-62679a5e01f2?w=800&q=80", // forest canopy
+  story1: "https://images.unsplash.com/photo-1615107369496-a23742bcace7?w=800&q=80", // jungle tree
   story2: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80", // hands planting
   story3: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=800&q=80",  // jungle river
   story4: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&q=80",  // green leaf detail
-  story5: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80",  // sunlit forest
+  story5: "https://images.unsplash.com/photo-1584000838091-bafabb72860d?w=800&q=80",  // ashaninka placeholder
   story6: "https://images.unsplash.com/photo-1574482620811-1aa16ffe3c82?w=800&q=80",  // tropical foliage
 } as const;
