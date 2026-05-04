@@ -110,6 +110,51 @@ function IconInfo({ className = "w-3 h-3" }: IconProps) {
 }
 
 // ───────────────────────────────────────────────────────────
+// Raffle entry seal — used on My Entries tab
+// ───────────────────────────────────────────────────────────
+function EntryBadge({ className = "w-16 h-16 sm:w-20 sm:h-20" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`shrink-0 text-brand-green-soft ${className}`}
+    >
+      {/* Outer thin ring */}
+      <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="0.8" opacity="0.35" />
+      {/* Dashed mid ring — seal feel */}
+      <circle cx="50" cy="50" r="43" stroke="currentColor" strokeWidth="0.5" opacity="0.5" strokeDasharray="1.5 2.5" />
+      {/* Inner filled circle */}
+      <circle cx="50" cy="50" r="36" fill="currentColor" fillOpacity="0.08" stroke="currentColor" strokeWidth="0.6" strokeOpacity="0.6" />
+      {/* Leaf, centered and scaled 2.5x from IconLeaf path */}
+      <g transform="translate(20, 20) scale(2.5)">
+        <path
+          d="M11 20A7 7 0 014 13V5a9 9 0 019 9 7 7 0 01-2 5z"
+          stroke="currentColor"
+          strokeWidth="0.6"
+          fill="currentColor"
+          fillOpacity="0.15"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M2 22l9-9"
+          stroke="currentColor"
+          strokeWidth="0.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      {/* Cardinal dots */}
+      <circle cx="50" cy="4" r="1.2" fill="currentColor" opacity="0.7" />
+      <circle cx="96" cy="50" r="1.2" fill="currentColor" opacity="0.7" />
+      <circle cx="50" cy="96" r="1.2" fill="currentColor" opacity="0.7" />
+      <circle cx="4" cy="50" r="1.2" fill="currentColor" opacity="0.7" />
+    </svg>
+  );
+}
+
+// ───────────────────────────────────────────────────────────
 // Tab definitions
 // ───────────────────────────────────────────────────────────
 const TABS: {
@@ -335,27 +380,29 @@ export default function Dashboard() {
                   Your entries.
                 </h2>
               </div>
-
-              <div className="glass-panel-dark border border-white/10 rounded-2xl p-6 sm:p-7">
+<div className="glass-panel-dark border border-white/10 rounded-2xl p-6 sm:p-7">
                 <div className="flex justify-between items-start gap-4">
-                  <div className="min-w-0">
-                    <p
-                      className="font-display text-white text-xl sm:text-2xl mb-2"
-                      style={{ fontWeight: 500 }}
-                    >
-                      {totalTrees} tree{totalTrees > 1 ? "s" : ""} donation
-                    </p>
-                    {txHash && (
-                      <a
-                        href={`${CHAIN.explorer}/tx/${txHash}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-mono text-brand-green-soft hover:text-white inline-flex items-center gap-1 transition-colors"
+                  <div className="flex items-start gap-5 min-w-0">
+                    <EntryBadge />
+                    <div className="min-w-0">
+                      <p
+                        className="font-display text-white text-xl sm:text-2xl mb-2"
+                        style={{ fontWeight: 500 }}
                       >
-                        {txHash.slice(0, 10)}…{txHash.slice(-8)}
-                        <IconExternal />
-                      </a>
-                    )}
+                        {totalTrees} tree{totalTrees > 1 ? "s" : ""} donation
+                      </p>
+                      {txHash && (
+                        <a
+                          href={`${CHAIN.explorer}/tx/${txHash}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-brand-green-soft hover:text-white inline-flex items-center gap-1 transition-colors"
+                        >
+                          {txHash.slice(0, 10)}…{txHash.slice(-8)}
+                          <IconExternal />
+                        </a>
+                      )}
+                    </div>
                   </div>
                   <span className="label-small text-brand-green-soft px-3 py-1.5 rounded-full border border-brand-green-soft/30 inline-flex items-center gap-1.5 shrink-0">
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-green-soft animate-pulse" />
