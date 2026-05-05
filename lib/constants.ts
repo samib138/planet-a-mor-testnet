@@ -83,7 +83,7 @@ export const LINKS = {
 
 // ─── Visual Assets ─────────────────────────────────────────
 export const IMAGES = {
-  hero: process.env.NEXT_PUBLIC_HERO_IMAGE || "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=2000&q=80",
+  hero: process.env.NEXT_PUBLIC_HERO_IMAGE || "https://images.unsplash.com/photo-1605940169839-aedc047b0b06?w=2000&q=80",
   dashboard: process.env.NEXT_PUBLIC_DASHBOARD_IMAGE || "https://images.unsplash.com/photo-1657463420259-1c92c609f89e?w=2000&q=80",
   // Story photos woven into sections
   story1: "https://images.unsplash.com/photo-1615107369496-a23742bcace7?w=800&q=80", // jungle tree
