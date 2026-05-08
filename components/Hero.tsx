@@ -83,6 +83,19 @@ export default function Hero() {
           Peruvian Amazon · Reforestation
         </p>
 
+        <p
+          className="font-display italic text-brand-green-soft text-4xl sm:text-5xl md:text-6xl leading-[1.02] mb-3 opacity-0"
+          style={{
+            fontVariationSettings: '"SOFT" 80',
+            fontWeight: 500,
+            animation: "fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.075s forwards",
+          }}
+        >
+          Planet-A-mor
+        </p>
+
+        <h1
+
         <h1
           className="font-display text-white text-[44px] sm:text-6xl md:text-7xl leading-[1.02] mb-6 max-w-[840px] opacity-0"
           style={{
