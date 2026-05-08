@@ -14,7 +14,7 @@ const SIZES = {
   sm: "h-8",
   md: "h-10",
   lg: "h-12",
-  xl: "h-24",,
+  xl: "h-24",
 } as const;
 
 /**
