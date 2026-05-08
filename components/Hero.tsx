@@ -71,7 +71,7 @@ export default function Hero() {
       {/* Navigation */}
       <nav className="relative z-10 flex justify-between items-center px-6 sm:px-8 py-6">
         <div className="flex items-center gap-3">
-          <Logo size="md" variant="light" />
+          <Logo size="lg" variant="light" />
           <TestnetBadge variant="light" />
         </div>
         <BaseBadge variant="light" />
