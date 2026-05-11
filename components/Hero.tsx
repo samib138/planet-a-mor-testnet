@@ -9,11 +9,12 @@ import LeafParticles from "./LeafParticles";
 
 /**
  * Hero — full-bleed Amazon rainforest photo with:
- * - Dark gradient overlay (top 85% opacity → bottom 60%)
- * - Scroll-linked parallax on the image (0.3x scroll speed)
+ * - Dark gradient overlay
+ * - Scroll-linked parallax on the image
  * - Nav with logo, testnet badge, and "Built on Base" badge
  * - Headline in Fraunces, CTA button to scroll to donation
  * - Leaf particles for atmosphere
+ * - Fixed corner button linking to /onboarding.html
  */
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -29,7 +30,6 @@ export default function Hero() {
     document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Parallax: image moves down at 0.3x scroll speed
   const parallaxY = scrollY * 0.3;
 
   return (
@@ -71,7 +71,7 @@ export default function Hero() {
       {/* Navigation */}
       <nav className="relative z-10 flex justify-between items-center px-6 sm:px-8 py-6">
         <div className="flex items-center gap-3">
-         <Logo size="xl" variant="light" />
+          <Logo size="xl" variant="light" />
           <TestnetBadge variant="light" />
         </div>
         <BaseBadge variant="light" />
@@ -140,7 +140,8 @@ export default function Hero() {
       >
         <div className="w-[1px] h-12 bg-gradient-to-b from-white/40 to-transparent mx-auto" />
       </div>
-{/* Fixed onboarding button */}
+
+      {/* Fixed onboarding button */}
       
         href="/onboarding.html"
         target="_blank"
@@ -151,6 +152,7 @@ export default function Hero() {
         <span>New here? Start here</span>
         <span aria-hidden="true">→</span>
       </a>
+
       {/* Organic bottom transition (vignette to next section) */}
       <div
         className="absolute bottom-0 left-0 right-0 h-32 z-[2] pointer-events-none"
