@@ -140,9 +140,9 @@ export default function Hero() {
       >
         <div className="w-[1px] h-12 bg-gradient-to-b from-white/40 to-transparent mx-auto" />
       </div>
-<a
+
       {/* Fixed onboarding button */}
-      
+      <a
         href="/onboarding.html"
         target="_blank"
         rel="noopener noreferrer"
