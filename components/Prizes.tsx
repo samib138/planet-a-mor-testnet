@@ -126,9 +126,7 @@ export default function Prizes() {
                   background: "linear-gradient(to bottom, transparent 40%, rgba(17,18,16,0.6) 100%)",
                 }}
               />
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center shadow-sm text-brand-green-soft">
-                <prize.Icon className="w-5 h-5" />
-              </div>
+              
               {prize.featured && (
                 <span className="absolute top-4 right-4 label-small bg-brand-gold text-white px-3 py-1 rounded-full">
                   Grand Prize
