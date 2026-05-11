@@ -63,21 +63,21 @@ function PlaneIcon({ className = "" }: { className?: string }) {
 
 const PRIZES = [
   {
-    image: IMAGES.story6,
+    image: "/images/bannana.jpg",
     Icon: GiftIcon,
     title: "Eco Discounts",
     desc: "Exclusive discounts on future tree packages and Planet-A-mor merchandise.",
     accent: "#4A7C2E",
   },
   {
-    image: IMAGES.story2,
+    image: "/images/tree-3ladies.jpg",
     Icon: TreeIcon,
     title: "Free Trees + ROI",
     desc: "Free tree packages with return on retail value. Your forest grows for free.",
     accent: "#6B9B4A",
   },
   {
-    image: IMAGES.story3,
+    image: "/images/grand-prize.jpg",
     Icon: PlaneIcon,
     title: "Trip to Peru 2026",
     desc: "Grand prize: 11-day Amazon expedition. Sail the river, walk among your trees, meet the Ashaninka.",
