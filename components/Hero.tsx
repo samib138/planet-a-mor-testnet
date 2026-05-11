@@ -140,7 +140,17 @@ export default function Hero() {
       >
         <div className="w-[1px] h-12 bg-gradient-to-b from-white/40 to-transparent mx-auto" />
       </div>
-
+{/* Fixed onboarding button */}
+      
+        href="/onboarding.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 bg-brand-jungle/95 backdrop-blur-sm text-brand-cream px-5 py-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 text-sm font-medium border border-white/10"
+      >
+        <span>📖</span>
+        <span>New here? Start here</span>
+        <span aria-hidden="true">→</span>
+      </a>
       {/* Organic bottom transition (vignette to next section) */}
       <div
         className="absolute bottom-0 left-0 right-0 h-32 z-[2] pointer-events-none"
