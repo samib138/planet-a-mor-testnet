@@ -12,11 +12,11 @@ import Logo from "./Logo";
  *
  * Two stages:
  *   1. Form: email input + consent checkboxes + Confirm button
- *      → On submit, POSTs to /api/send-confirmation which (a) saves
+ *      On submit, POSTs to /api/send-confirmation which (a) saves
  *      consent to Postgres, (b) sends confirmation email to user,
  *      (c) sends notification email to the team.
- *   2. Success: "You're in!" + <EmailPreview /> showing the email
- *      that was just sent.
+ *   2. Success: confirmation message + EmailPreview showing the
+ *      email that was just sent.
  */
 export default function EmailModal() {
   const { showEmailModal, setShowEmailModal, setEmailSubmitted, setUserEmail, userEmail, treeCount, txHash } =
@@ -85,7 +85,7 @@ export default function EmailModal() {
     setError("");
   };
 
-  // ─── Stage 2: success + email preview ─────────────────
+  // Stage 2: success state with email preview
   if (submitted) {
     return (
       <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[1000] overflow-y-auto">
@@ -99,7 +99,6 @@ export default function EmailModal() {
               ✕
             </button>
 
-            {/* Success header */}
             <div className="text-center px-8 pt-10 pb-6 border-b border-brand-text-dark/5">
               <div className="text-4xl mb-3">🌱</div>
               <h3
@@ -112,12 +111,11 @@ export default function EmailModal() {
                 </span>
               </h3>
               <p className="text-sm text-brand-text-mid">
-                Check your inbox — your raffle entry confirmation just landed at{" "}
+                Check your inbox &mdash; your raffle entry confirmation just landed at{" "}
                 <strong className="text-brand-text-dark">{userEmail || email}</strong>.
               </p>
             </div>
 
-            {/* Email preview */}
             <div className="p-6 bg-brand-cream/50">
               <EmailPreview
                 recipientEmail={userEmail || email}
@@ -127,7 +125,6 @@ export default function EmailModal() {
               />
             </div>
 
-            {/* Footer actions */}
             <div className="px-8 py-5 border-t border-brand-text-dark/5 flex items-center justify-between gap-4 bg-white rounded-b-3xl">
               
                 href={LINKS.website}
@@ -135,7 +132,7 @@ export default function EmailModal() {
                 rel="noopener noreferrer"
                 className="text-sm text-brand-green hover:text-brand-jungle underline transition-colors"
               >
-                Visit planet-a-mor.org →
+                Visit planet-a-mor.org &rarr;
               </a>
               <button
                 onClick={handleClose}
@@ -150,7 +147,7 @@ export default function EmailModal() {
     );
   }
 
-  // ─── Stage 1: email form ──────────────────────────────
+  // Stage 1: email form
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[1000] flex items-center justify-center p-5">
       <div className="bg-white rounded-3xl max-w-[440px] w-full relative shadow-2xl">
@@ -234,14 +231,11 @@ export default function EmailModal() {
           <button
             onClick={handleSubmit}
             disabled={!isValid || submitting}
-            className={`
-              btn-press w-full mt-6 py-3.5 rounded-xl text-white font-medium text-sm border-0
-              transition-colors
-              ${isValid && !submitting
+            className={`btn-press w-full mt-6 py-3.5 rounded-xl text-white font-medium text-sm border-0 transition-colors ${
+              isValid && !submitting
                 ? "bg-brand-jungle hover:bg-brand-black cursor-pointer"
                 : "bg-brand-text-light/40 cursor-not-allowed"
-              }
-            `}
+            }`}
           >
             {submitting ? "Sending…" : "Confirm Entry"}
           </button>
