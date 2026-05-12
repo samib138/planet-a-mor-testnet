@@ -12,12 +12,11 @@ import Logo from "./Logo";
  *
  * Two stages:
  *   1. Form: email input + consent checkboxes + Confirm button
- *   2. Success: "You're in!" message + <EmailPreview /> showing the
- *      confirmation email that would be sent in production
- *
- * NOTE: No real email is sent in this demo build. The dev team will
- * wire this up to Resend/SendGrid and use the EmailPreview component
- * as their email template source.
+ *      → On submit, POSTs to /api/send-confirmation which (a) saves
+ *      consent to Postgres, (b) sends confirmation email to user,
+ *      (c) sends notification email to the team.
+ *   2. Success: "You're in!" + <EmailPreview /> showing the email
+ *      that was just sent.
  */
 export default function EmailModal() {
   const { showEmailModal, setShowEmailModal, setEmailSubmitted, setUserEmail, userEmail, treeCount, txHash } =
@@ -28,6 +27,7 @@ export default function EmailModal() {
   const [consentMarketing, setConsentMarketing] = useState(false);
   const [consentTerms, setConsentTerms] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   if (!showEmailModal) return null;
@@ -35,16 +35,45 @@ export default function EmailModal() {
   const isValid =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && consentMarketing && consentTerms;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isValid) {
       setError("Please fill all required fields.");
       return;
     }
-    setUserEmail(email);
-    setSubmitted(true);
-    setEmailSubmitted(true);
-    // NOTE: In production, POST to /api/send-confirmation here which would
-    // (1) save entry to DB, (2) send the email via Resend/SendGrid.
+
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/send-confirmation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          consentMarketing,
+          consentTerms,
+          walletAddress: address,
+          txHash,
+          treeCount,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || "Something went wrong. Please try again.");
+        setSubmitting(false);
+        return;
+      }
+
+      setUserEmail(email);
+      setSubmitted(true);
+      setEmailSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      setError("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -83,8 +112,8 @@ export default function EmailModal() {
                 </span>
               </h3>
               <p className="text-sm text-brand-text-mid">
-                Your raffle entry is confirmed. Here&apos;s the email that
-                would land in your inbox.
+                Check your inbox — your raffle entry confirmation just landed at{" "}
+                <strong className="text-brand-text-dark">{userEmail || email}</strong>.
               </p>
             </div>
 
@@ -100,7 +129,7 @@ export default function EmailModal() {
 
             {/* Footer actions */}
             <div className="px-8 py-5 border-t border-brand-text-dark/5 flex items-center justify-between gap-4 bg-white rounded-b-3xl">
-              <a
+              
                 href={LINKS.website}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -154,17 +183,19 @@ export default function EmailModal() {
             type="email"
             placeholder="your@email.com"
             value={email}
+            disabled={submitting}
             onChange={(e) => {
               setEmail(e.target.value);
               setError("");
             }}
-            className="w-full px-4 py-3.5 rounded-xl border border-brand-text-dark/10 text-sm outline-none transition-colors focus:border-brand-green"
+            className="w-full px-4 py-3.5 rounded-xl border border-brand-text-dark/10 text-sm outline-none transition-colors focus:border-brand-green disabled:opacity-60"
           />
 
           <label className="flex items-start gap-3 mt-4 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={consentMarketing}
+              disabled={submitting}
               onChange={(e) => setConsentMarketing(e.target.checked)}
               className="mt-0.5 accent-brand-green shrink-0"
             />
@@ -178,12 +209,13 @@ export default function EmailModal() {
             <input
               type="checkbox"
               checked={consentTerms}
+              disabled={submitting}
               onChange={(e) => setConsentTerms(e.target.checked)}
               className="mt-0.5 accent-brand-green shrink-0"
             />
             <span className="text-[11.5px] leading-[1.55] text-brand-text-mid">
               I agree to the{" "}
-              <a
+              
                 href={LINKS.terms}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -201,17 +233,17 @@ export default function EmailModal() {
 
           <button
             onClick={handleSubmit}
-            disabled={!isValid}
+            disabled={!isValid || submitting}
             className={`
               btn-press w-full mt-6 py-3.5 rounded-xl text-white font-medium text-sm border-0
               transition-colors
-              ${isValid
+              ${isValid && !submitting
                 ? "bg-brand-jungle hover:bg-brand-black cursor-pointer"
                 : "bg-brand-text-light/40 cursor-not-allowed"
               }
             `}
           >
-            Confirm Entry
+            {submitting ? "Sending…" : "Confirm Entry"}
           </button>
         </div>
       </div>
