@@ -33,12 +33,12 @@ export default function EmailPreview({
 
   return (
     <div className="w-full max-w-[540px] mx-auto">
-      {/* Demo banner */}
-      <div className="mb-4 bg-brand-amber-bg border border-brand-gold/30 rounded-xl px-4 py-3 flex items-start gap-2.5">
-        <span className="text-base leading-none mt-0.5">📧</span>
+      {/* Sent confirmation banner */}
+      <div className="mb-4 bg-brand-green/10 border border-brand-green/30 rounded-xl px-4 py-3 flex items-start gap-2.5">
+        <span className="text-base leading-none mt-0.5">✓</span>
         <p className="text-[12px] text-brand-text-mid leading-relaxed">
-          <strong className="text-brand-amber">Preview only.</strong> In
-          production, this email will be sent via Resend or SendGrid to{" "}
+          <strong className="text-brand-jungle">Sent.</strong> A copy of this email
+          just landed at{" "}
           <code className="font-mono text-brand-text-dark bg-white/60 px-1.5 py-0.5 rounded">
             {recipientEmail || "you@example.com"}
           </code>
