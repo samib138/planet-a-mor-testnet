@@ -13,7 +13,7 @@ export const metadata: Metadata = {
       "Every $5 plants a real tree in the Peruvian Amazon — and earns you a chance to win life-changing prizes.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1200&q=80",
+        url: "https://images.unsplash.com/photo-1605940169839-aedc047b0b06?w=2000&q=80",
         width: 1200,
         height: 630,
         alt: "Amazon rainforest",
