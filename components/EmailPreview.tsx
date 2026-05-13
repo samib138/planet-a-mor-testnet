@@ -8,6 +8,7 @@ interface EmailPreviewProps {
   treeCount: number;
   txHash: string;
   walletAddress?: string;
+  onDashboardClick?: () => void;
 }
 
 /**
@@ -26,6 +27,7 @@ export default function EmailPreview({
   treeCount,
   txHash,
   walletAddress,
+  onDashboardClick,
 }: EmailPreviewProps) {
   const explorerLink = txHash ? `${CHAIN.explorer}/tx/${txHash}` : "#";
   const shortTx = txHash ? `${txHash.slice(0, 10)}…${txHash.slice(-8)}` : "—";
@@ -33,12 +35,12 @@ export default function EmailPreview({
 
   return (
     <div className="w-full max-w-[540px] mx-auto">
-      {/* Demo banner */}
-      <div className="mb-4 bg-brand-amber-bg border border-brand-gold/30 rounded-xl px-4 py-3 flex items-start gap-2.5">
-        <span className="text-base leading-none mt-0.5">📧</span>
+      {/* Sent confirmation banner */}
+      <div className="mb-4 bg-brand-green/10 border border-brand-green/30 rounded-xl px-4 py-3 flex items-start gap-2.5">
+        <span className="text-base leading-none mt-0.5">✓</span>
         <p className="text-[12px] text-brand-text-mid leading-relaxed">
-          <strong className="text-brand-amber">Preview only.</strong> In
-          production, this email will be sent via Resend or SendGrid to{" "}
+          <strong className="text-brand-jungle">Sent.</strong> A copy of this email
+          just landed at{" "}
           <code className="font-mono text-brand-text-dark bg-white/60 px-1.5 py-0.5 rounded">
             {recipientEmail || "you@example.com"}
           </code>
@@ -167,7 +169,7 @@ export default function EmailPreview({
               </p>
               <p className="text-[13px] text-brand-text-mid leading-[1.65]">
                 You&apos;re entered to win eco prizes + an 11-day Amazon
-                expedition. Winners announced Q1 2026 via Chainlink VRF.
+                expedition. Winners announced Q4 2026 via Chainlink VRF.
               </p>
             </div>
 
@@ -188,12 +190,13 @@ export default function EmailPreview({
 
             {/* CTA */}
             <div className="text-center mb-6">
-              <a
-                href="#"
-                className="inline-block bg-brand-jungle text-white no-underline px-8 py-3 rounded-full font-medium text-[14px] hover:bg-brand-black transition-colors"
+              <button
+                type="button"
+                onClick={onDashboardClick}
+                className="inline-block bg-brand-jungle text-white border-0 px-8 py-3 rounded-full font-medium text-[14px] cursor-pointer hover:bg-brand-black transition-colors"
               >
                 View your dashboard →
-              </a>
+              </button>
             </div>
 
             <p className="text-[12px] text-brand-text-light leading-[1.7] text-center">

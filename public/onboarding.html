@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Plant a Tree On-Chain — Tester Onboarding · Planet-A-mor</title>
+<meta name="description" content="A guided onboarding for testing Planet-A-mor's blockchain reforestation platform on Base Sepolia." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --jungle: #1F3A2E;
+    --jungle-deep: #122218;
+    --green: #4A7C2E;
+    --green-soft: #6B9B4A;
+    --cream: #F7F4ED;
+    --paper: #FBF9F3;
+    --ink: #1A1F1B;
+    --ink-mid: #4A5249;
+    --ink-light: #8B9189;
+    --line: rgba(26, 31, 27, 0.08);
+    --line-strong: rgba(26, 31, 27, 0.14);
+    --gold: #B8893A;
+    --warning: #C75B3D;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    background-image:
+      radial-gradient(at 15% 5%, rgba(74, 124, 46, 0.04) 0px, transparent 50%),
+      radial-gradient(at 85% 95%, rgba(184, 137, 58, 0.03) 0px, transparent 50%);
+  }
+
+  .grain::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .container-wide {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ═══════════ HERO ═══════════ */
+  .hero {
+    background: var(--jungle);
+    background-image:
+      radial-gradient(at 20% 20%, rgba(107, 155, 74, 0.18) 0px, transparent 60%),
+      radial-gradient(at 80% 80%, rgba(184, 137, 58, 0.10) 0px, transparent 60%);
+    color: var(--cream);
+    padding: 72px 0 96px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(247, 244, 237, 0.1);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(247, 244, 237, 0.3), transparent);
+  }
+
+  .hero-mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 56px;
+    opacity: 0.85;
+  }
+
+  .hero-mark img {
+    height: 38px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+  }
+
+  .hero-mark-text {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: rgba(247, 244, 237, 0.7);
+    border-left: 1px solid rgba(247, 244, 237, 0.25);
+    padding-left: 14px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--green-soft);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--green-soft);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--green-soft);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(44px, 7vw, 84px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin-bottom: 28px;
+    font-variation-settings: "SOFT" 25, "opsz" 144;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--green-soft);
+    font-variation-settings: "SOFT" 30, "opsz" 144;
+    letter-spacing: -0.018em;
+  }
+
+  .hero-lede {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(247, 244, 237, 0.85);
+    max-width: 580px;
+    margin-bottom: 48px;
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 32px;
+    padding-top: 36px;
+    border-top: 1px solid rgba(247, 244, 237, 0.15);
+    max-width: 720px;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero-meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 237, 0.5);
+  }
+
+  .hero-meta-value {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--cream);
+    font-weight: 400;
+  }
+
+  /* ═══════════ INTRO BAR ═══════════ */
+  .intro-bar {
+    background: var(--cream);
+    padding: 56px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .intro-bar-inner {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .intro-bar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .intro-bar-text {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+
+  .intro-bar-text strong {
+    font-weight: 500;
+    color: var(--green);
+  }
+
+  @media (max-width: 720px) {
+    .intro-bar-inner { grid-template-columns: 1fr; gap: 16px; }
+    .intro-bar-text { font-size: 20px; }
+  }
+
+  /* ═══════════ SECTIONS ═══════════ */
+  section.step {
+    padding: 88px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+
+  section.step:nth-child(odd-step) {
+    background: var(--cream);
+  }
+
+  .step-header {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 28px;
+    align-items: baseline;
+    margin-bottom: 40px;
+  }
+
+  .step-number {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--green);
+    font-variation-settings: "SOFT" 20, "opsz" 144;
+    font-style: italic;
+  }
+
+  .step-title-block .step-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+
+  .step-title-block h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .step-title-block h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--green);
+    font-variation-settings: "SOFT" 20, "opsz" 72;
+  }
+
+  .step-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+  }
+
+  .step-body {
+    margin-left: 116px;
+    max-width: 640px;
+  }
+
+  @media (max-width: 720px) {
+    .step-header { grid-template-columns: 1fr; gap: 8px; }
+    .step-number { font-size: 48px; }
+    .step-body { margin-left: 0; }
+  }
+
+  .step-body p {
+    margin-bottom: 18px;
+    color: var(--ink-mid);
+    font-size: 16px;
+  }
+
+  .step-body p strong { color: var(--ink); font-weight: 500; }
+
+  .step-body ol, .step-body ul {
+    margin-bottom: 24px;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: substep;
+  }
+
+  .step-body ol li {
+    counter-increment: substep;
+    padding-left: 36px;
+    margin-bottom: 14px;
+    position: relative;
+    color: var(--ink-mid);
+  }
+
+  .step-body ol li::before {
+    content: counter(substep);
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    font-weight: 500;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--paper);
+  }
+
+  .step-body ul li {
+    padding-left: 24px;
+    margin-bottom: 8px;
+    position: relative;
+    color: var(--ink-mid);
+  }
+
+  .step-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 12px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  /* CTA Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: var(--jungle);
+    color: var(--cream);
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    letter-spacing: 0.01em;
+    border: 1px solid var(--jungle);
+  }
+
+  .btn:hover {
+    background: var(--green);
+    border-color: var(--green);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(74, 124, 46, 0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+  }
+
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+    box-shadow: 0 8px 20px rgba(26, 31, 27, 0.15);
+  }
+
+  .btn-arrow { display: inline-block; transition: transform 0.25s ease; }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+
+  .button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  /* Code/data field */
+  .data-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .data-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 14px;
+  }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .data-row:last-child { border-bottom: none; }
+
+  .data-key {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-mid);
+    font-weight: 500;
+  }
+
+  .data-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+    word-break: break-all;
+    line-height: 1.5;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-mid);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .copy-btn.copied { background: var(--green); color: var(--cream); border-color: var(--green); }
+
+  @media (max-width: 600px) {
+    .data-row { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
+    .copy-btn { justify-self: start; }
+  }
+
+  /* Pull quote / callout */
+  .callout {
+    background: var(--cream);
+    border-left: 3px solid var(--green);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+
+  .callout p { color: var(--ink); font-size: 15px; margin: 0; }
+
+  .callout.warning { border-left-color: var(--warning); }
+  .callout.warning .callout-label { color: var(--warning); }
+
+  .callout.gold { border-left-color: var(--gold); }
+  .callout.gold .callout-label { color: var(--gold); }
+
+  /* Faucet card grid */
+  .faucet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .faucet-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+    background: var(--paper);
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .faucet-card:hover {
+    border-color: var(--green);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(26, 31, 27, 0.06);
+  }
+
+  .faucet-card-name {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .faucet-card-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  .faucet-card-cta {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--green);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Visual flow / timeline */
+  .flow-strip {
+    background: var(--jungle-deep);
+    color: var(--cream);
+    padding: 64px 0;
+    margin: 0;
+  }
+
+  .flow-strip h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 32px;
+    color: var(--cream);
+    text-align: center;
+  }
+
+  .flow-strip h3 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--green-soft);
+    font-variation-settings: "SOFT" 20, "opsz" 36;
+  }
+
+  .flow-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .flow-item {
+    text-align: center;
+    position: relative;
+  }
+
+  .flow-item::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 14px;
+    color: var(--green-soft);
+    opacity: 0.5;
+    font-size: 14px;
+  }
+
+  .flow-item:last-child::after { display: none; }
+
+  .flow-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(247, 244, 237, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--green-soft);
+  }
+
+  .flow-label {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+
+  @media (max-width: 720px) {
+    .flow-track { grid-template-columns: 1fr 1fr; }
+    .flow-item:nth-child(2)::after,
+    .flow-item:nth-child(4)::after { display: none; }
+  }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+  }
+
+  .faq-q {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .faq-a { color: var(--ink-mid); font-size: 15px; }
+
+  /* Footer */
+  footer {
+    background: var(--jungle);
+    color: var(--cream);
+    padding: 64px 0 48px;
+    text-align: center;
+  }
+
+  footer img {
+    height: 44px;
+    margin-bottom: 24px;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+  }
+
+  footer p {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(247, 244, 237, 0.7);
+    margin-bottom: 16px;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(247, 244, 237, 0.1);
+  }
+
+  .footer-links a {
+    color: rgba(247, 244, 237, 0.6);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--green-soft); }
+
+  /* Final CTA */
+  .final-cta {
+    background: var(--cream);
+    padding: 96px 0;
+    text-align: center;
+    border-top: 1px solid var(--line);
+  }
+
+  .final-cta h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+
+  .final-cta h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--green);
+    font-variation-settings: "SOFT" 20, "opsz" 72;
+  }
+
+  .final-cta p {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--ink-mid);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    font-weight: 300;
+  }
+
+  .btn-large {
+    padding: 18px 36px;
+    font-size: 15px;
+  }
+
+  /* Smooth reveal */
+  @media (prefers-reduced-motion: no-preference) {
+    .step-header, .step-body { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+    section.step { animation-delay: 0.1s; }
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: none; }
+    from { opacity: 0; transform: translateY(20px); }
+  }
+
+</style>
+</head>
+<body class="grain">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-mark">
+      <img src="https://images.squarespace-cdn.com/content/v1/63ad5bf9b0350a10796c2a17/79178a19-5934-4662-92f2-e2dda1edd9ed/planeta+amor+isologotipo12-12.png?format=500w" alt="Planet-A-mor" />
+      <div class="hero-mark-text">B-Corp Reforestation · Peruvian Amazon</div>
+    </div>
+
+    <div class="hero-eyebrow">Tester Onboarding · Base Sepolia Testnet</div>
+
+    <h1>Plant a tree on-chain.<br/>In <em>fifteen minutes.</em></h1>
+
+    <p class="hero-lede">
+      You're about to test the world's first transparent, blockchain-verified
+      reforestation platform. Every donation is permanent. Every tree is provable.
+      And every certificate is yours, forever.
+    </p>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Network</div>
+        <div class="hero-meta-value">Base Sepolia</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Tokens used</div>
+        <div class="hero-meta-value">USDC (testnet)</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Total cost</div>
+        <div class="hero-meta-value">$0 — it's free</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-label">Time required</div>
+        <div class="hero-meta-value">15 minutes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INTRO BAR ═══════════ -->
+<section class="intro-bar">
+  <div class="container">
+    <div class="intro-bar-inner">
+      <div class="intro-bar-label">A note from the team</div>
+      <div class="intro-bar-text">
+        This is a <strong>testnet preview</strong> — the same platform that will go live, running on
+        free test money so you can experience the full flow without spending a cent.
+        Help us find what's broken, beautiful, or confusing.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FLOW DIAGRAM ═══════════ -->
+<section class="flow-strip">
+  <h3>What you'll do, <em>in five steps</em></h3>
+  <div class="flow-track">
+    <div class="flow-item">
+      <div class="flow-icon">01</div>
+      <div class="flow-label">Install MetaMask</div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-icon">02</div>
+      <div class="flow-label">Add Base Sepolia</div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-icon">03</div>
+      <div class="flow-label">Get free test ETH</div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-icon">04</div>
+      <div class="flow-label">Get free test USDC</div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-icon">05</div>
+      <div class="flow-label">Plant your tree</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 1 ═══════════ -->
+<section class="step">
+  <div class="container">
+    <div class="step-header">
+      <div class="step-number">01</div>
+      <div class="step-title-block">
+        <div class="step-eyebrow">Step One · Wallet</div>
+        <h2>Install <em>MetaMask</em></h2>
+        <div class="step-time">~ 3 minutes</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>
+        MetaMask is a free browser extension that holds your test wallet — a digital
+        wallet where your test ETH, test USDC, and your tree NFTs will live. Think of
+        it as a self-custodial bank account that nobody else can access.
+      </p>
+
+      <ol>
+        <li>Open <strong>Chrome, Brave, or Firefox</strong> on a desktop computer (mobile works too, but desktop is easier for first-time setup).</li>
+        <li>Go to the official MetaMask website using the button below — never download from an app store result, only from metamask.io.</li>
+        <li>Click <strong>"Download"</strong> → <strong>"Install MetaMask for Chrome"</strong> (or whichever browser you use).</li>
+        <li>Open the extension. Click <strong>"Create a new wallet"</strong> — you'll set a password and write down a 12-word backup phrase.</li>
+        <li><strong>Write that 12-word phrase down on paper</strong> and store it somewhere safe. This is your only key. We'll never see it. We can never recover it for you.</li>
+      </ol>
+
+      <div class="button-row">
+        <a href="https://metamask.io/download/" class="btn" target="_blank" rel="noopener">
+          Install MetaMask
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">Critical — read this</div>
+        <p>
+          Anyone with your 12-word phrase has full control of your wallet. Never share it,
+          never type it into a website, never store it in cloud notes. Even though this is
+          a test wallet for now, building good security habits early matters.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 2 ═══════════ -->
+<section class="step" style="background: var(--cream);">
+  <div class="container">
+    <div class="step-header">
+      <div class="step-number">02</div>
+      <div class="step-title-block">
+        <div class="step-eyebrow">Step Two · Network</div>
+        <h2>Add <em>Base Sepolia</em> to MetaMask</h2>
+        <div class="step-time">~ 2 minutes</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>
+        By default, MetaMask only knows about Ethereum mainnet. We need to tell it about
+        Base Sepolia — Coinbase's free test version of the Base blockchain, where this
+        platform lives during the preview.
+      </p>
+
+      <p><strong>The easiest way: one-click add.</strong> Use Chainlist, the standard tool for adding networks to MetaMask. It detects MetaMask automatically and adds the network with one click.</p>
+
+      <div class="button-row">
+        <a href="https://chainlist.org/?testnets=true&search=base+sepolia" class="btn" target="_blank" rel="noopener">
+          Add via Chainlist
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <p>On Chainlist: search "Base Sepolia," click <strong>"Connect Wallet,"</strong> then click <strong>"Add to MetaMask."</strong> MetaMask pops up to confirm. Click Approve.</p>
+
+      <p style="margin-top: 28px;"><strong>Or add manually.</strong> If Chainlist isn't loading, open MetaMask → click the network dropdown at the top → "Add a network" → "Add a network manually" — then paste these values:</p>
+
+      <div class="data-card">
+        <div class="data-card-label">Base Sepolia · Network configuration</div>
+        <div class="data-row">
+          <div class="data-key">Network name</div>
+          <div class="data-value">Base Sepolia</div>
+          <button class="copy-btn" data-copy="Base Sepolia">Copy</button>
+        </div>
+        <div class="data-row">
+          <div class="data-key">RPC URL</div>
+          <div class="data-value">https://sepolia.base.org</div>
+          <button class="copy-btn" data-copy="https://sepolia.base.org">Copy</button>
+        </div>
+        <div class="data-row">
+          <div class="data-key">Chain ID</div>
+          <div class="data-value">84532</div>
+          <button class="copy-btn" data-copy="84532">Copy</button>
+        </div>
+        <div class="data-row">
+          <div class="data-key">Currency symbol</div>
+          <div class="data-value">ETH</div>
+          <button class="copy-btn" data-copy="ETH">Copy</button>
+        </div>
+        <div class="data-row">
+          <div class="data-key">Block explorer</div>
+          <div class="data-value">https://sepolia.basescan.org</div>
+          <button class="copy-btn" data-copy="https://sepolia.basescan.org">Copy</button>
+        </div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-label">Don't confuse the two</div>
+        <p>
+          <strong>Base Sepolia</strong> (chain ID 84532) is what you want. It's not the same as
+          plain "Sepolia" (chain ID 11155111) — that's Ethereum's testnet, a different network
+          entirely. If you accidentally add the wrong one, nothing breaks; just make sure you're
+          on Base Sepolia before continuing.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 3 ═══════════ -->
+<section class="step">
+  <div class="container">
+    <div class="step-header">
+      <div class="step-number">03</div>
+      <div class="step-title-block">
+        <div class="step-eyebrow">Step Three · Gas</div>
+        <h2>Get free <em>test ETH</em> for gas</h2>
+        <div class="step-time">~ 2 minutes</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>
+        Every blockchain transaction costs a tiny fee called "gas." On Base Sepolia, gas
+        is paid in test ETH — which is free, and worth nothing in the real world. You'll
+        need a small amount (about $0.01 worth) to plant your tree.
+      </p>
+
+      <p>
+        <strong>Pick any faucet below</strong> — they all do the same thing. Coinbase's
+        is the most generous and reliable, so we'd start there.
+      </p>
+
+      <div class="faucet-grid">
+        <a href="https://portal.cdp.coinbase.com/products/faucet" class="faucet-card" target="_blank" rel="noopener">
+          <div class="faucet-card-name">Coinbase Faucet</div>
+          <div class="faucet-card-meta">Recommended · 0.1 ETH per 24h</div>
+          <div class="faucet-card-cta">Open faucet <span class="btn-arrow">→</span></div>
+        </a>
+        <a href="https://www.alchemy.com/faucets/base-sepolia" class="faucet-card" target="_blank" rel="noopener">
+          <div class="faucet-card-name">Alchemy Faucet</div>
+          <div class="faucet-card-meta">Backup · Free Alchemy account required</div>
+          <div class="faucet-card-cta">Open faucet <span class="btn-arrow">→</span></div>
+        </a>
+        <a href="https://faucet.quicknode.com/base/sepolia" class="faucet-card" target="_blank" rel="noopener">
+          <div class="faucet-card-name">QuickNode Faucet</div>
+          <div class="faucet-card-meta">Backup · One drip per 12h</div>
+          <div class="faucet-card-cta">Open faucet <span class="btn-arrow">→</span></div>
+        </a>
+        <a href="https://faucets.chain.link/base-sepolia" class="faucet-card" target="_blank" rel="noopener">
+          <div class="faucet-card-name">Chainlink Faucet</div>
+          <div class="faucet-card-meta">Backup · Multi-asset</div>
+          <div class="faucet-card-cta">Open faucet <span class="btn-arrow">→</span></div>
+        </a>
+      </div>
+
+      <p>
+        On any faucet: connect your MetaMask wallet, make sure <strong>Base Sepolia</strong>
+        is selected, and click "Request" or "Drip." Test ETH usually arrives within 30 seconds.
+        Confirm by checking your MetaMask balance — you should see ~0.1 ETH appear under Base Sepolia.
+      </p>
+
+      <div class="callout gold">
+        <div class="callout-label">Faucet declined you?</div>
+        <p>
+          Some faucets require a small amount of real ETH on Ethereum mainnet to prove you're
+          not a bot. If one declines, just try another. Coinbase's typically has the loosest
+          requirements.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 4 ═══════════ -->
+<section class="step" style="background: var(--cream);">
+  <div class="container">
+    <div class="step-header">
+      <div class="step-number">04</div>
+      <div class="step-title-block">
+        <div class="step-eyebrow">Step Four · Currency</div>
+        <h2>Get free <em>test USDC</em></h2>
+        <div class="step-time">~ 1 minute</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>
+        USDC is a stablecoin — a digital dollar that's always worth $1. The platform
+        prices each tree at $5 USDC. On testnet, USDC is also free.
+      </p>
+
+      <p>
+        <strong>Use Circle's official faucet.</strong> Circle issues USDC, so their faucet
+        is the most reliable source.
+      </p>
+
+      <div class="button-row">
+        <a href="https://faucet.circle.com" class="btn" target="_blank" rel="noopener">
+          Open Circle USDC Faucet
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <p>On the faucet:</p>
+
+      <ol>
+        <li>Connect your MetaMask wallet.</li>
+        <li>Select <strong>"Base Sepolia"</strong> as the network.</li>
+        <li>Select <strong>"USDC"</strong> as the asset.</li>
+        <li>Request 10 USDC. Wait ~30 seconds.</li>
+      </ol>
+
+      <p>
+        After it arrives, you might not see USDC in MetaMask yet — that's because tokens
+        need to be added manually. Open MetaMask → Tokens tab → "Import tokens" → paste:
+      </p>
+
+      <div class="data-card">
+        <div class="data-card-label">USDC on Base Sepolia · Token contract</div>
+        <div class="data-row">
+          <div class="data-key">Token address</div>
+          <div class="data-value">0x036CbD53842c5426634e7929541eC2318f3dCF7e</div>
+          <button class="copy-btn" data-copy="0x036CbD53842c5426634e7929541eC2318f3dCF7e">Copy</button>
+        </div>
+        <div class="data-row">
+          <div class="data-key">Symbol</div>
+          <div class="data-value">USDC</div>
+          <button class="copy-btn" data-copy="USDC">Copy</button>
+        </div>
+        <div class="data-row">
+          <div class="data-key">Decimals</div>
+          <div class="data-value">6</div>
+          <button class="copy-btn" data-copy="6">Copy</button>
+        </div>
+      </div>
+
+      <p>MetaMask should auto-fill the symbol and decimals once you paste the address. Click "Add Token." You'll now see your 10 USDC.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 5 ═══════════ -->
+<section class="step">
+  <div class="container">
+    <div class="step-header">
+      <div class="step-number">05</div>
+      <div class="step-title-block">
+        <div class="step-eyebrow">Step Five · Plant</div>
+        <h2>Plant your <em>first tree</em></h2>
+        <div class="step-time">~ 2 minutes</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>
+        Everything's set up. Now for the fun part — visit the live preview and complete
+        a real on-chain donation.
+      </p>
+
+      <div class="button-row">
+        <a href="https://planet-a-mor-testnet.vercel.app" class="btn btn-large" target="_blank" rel="noopener">
+          Open the Mini App
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+
+      <p>What to expect, step by step:</p>
+
+      <ol>
+        <li>Click <strong>"Connect Wallet"</strong>. MetaMask pops up — approve the connection.</li>
+        <li>The app verifies you're on Base Sepolia. If you're on the wrong network, it'll prompt you to switch — just click Approve.</li>
+        <li>Choose how many trees you want to plant: <strong>1 tree ($5)</strong>, 5 trees ($25), or 10 trees ($50). Start with 1 to test.</li>
+        <li>Click the green <strong>"Plant 1 Tree — $5"</strong> button.</li>
+        <li><strong>MetaMask popup #1 — Approve USDC.</strong> This gives the donation contract permission to pull $5 from your wallet. Click Confirm.</li>
+        <li><strong>MetaMask popup #2 — Donate.</strong> This is the actual donation + NFT mint. Click Confirm.</li>
+        <li>Wait ~5 seconds. The success screen appears with your transaction hash.</li>
+        <li>Click <strong>"View your dashboard →"</strong> to see your tree NFT.</li>
+      </ol>
+
+      <div class="callout">
+        <div class="callout-label">What you should see in your wallet</div>
+        <p>
+          After the transaction confirms: USDC balance drops by $5 (10 → 5), a new
+          <strong>"Planet-A-mor Tree"</strong> NFT appears in MetaMask's NFT tab, and the
+          dashboard shows your tree counted toward your impact.
+        </p>
+      </div>
+
+      <p>
+        Plant a few more if you want — the app handles single donations and bulk donations
+        the same way. Each one mints a new NFT certificate.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FAQ ═══════════ -->
+<section class="step" style="background: var(--cream);">
+  <div class="container">
+    <div class="step-header">
+      <div class="step-number" style="font-size: 32px; padding-top: 12px;">?</div>
+      <div class="step-title-block">
+        <div class="step-eyebrow">FAQ</div>
+        <h2>Common <em>questions</em></h2>
+      </div>
+    </div>
+    <div class="step-body">
+
+      <div class="faq-item">
+        <div class="faq-q">Is this real money?</div>
+        <div class="faq-a">No. Everything you do here uses test tokens that are free, unlimited, and worth nothing outside the testnet. You cannot lose real money on Base Sepolia.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">My MetaMask says "insufficient funds"</div>
+        <div class="faq-a">You're either on the wrong network (check the dropdown at the top of MetaMask says "Base Sepolia") or out of test ETH. Hit the Coinbase faucet again.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">The first popup worked, the second one says "exceeds gas limit"</div>
+        <div class="faq-a">This usually self-resolves on retry — just click Plant a Tree again. The first popup grants USDC approval; the second is the actual donation. Sometimes the wallet needs a moment to register the approval before the donation can be simulated.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Where can I see my donation publicly?</div>
+        <div class="faq-a">Every donation creates an event on Base Sepolia, viewable forever at <a href="https://sepolia.basescan.org" target="_blank" rel="noopener" style="color: var(--green);">sepolia.basescan.org</a>. Your transaction hash on the success screen links directly to it.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Is my NFT the same as a real ownership certificate?</div>
+        <div class="faq-a">During the testnet preview, NFTs are real on-chain ERC-721 tokens but represent test donations only — the trees aren't planted from your test transaction. On mainnet, every NFT will represent a verified, real tree.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">I found a bug. How do I report it?</div>
+        <div class="faq-a">Email <strong>contact@planet-a-mor.org</strong> with a screenshot, the URL you were on, and a one-line description. Your feedback directly shapes the mainnet release.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FINAL CTA ═══════════ -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Every tree, <em>visible to everyone, forever.</em></h2>
+    <p>That's the difference. Plant one and see for yourself.</p>
+    <a href="https://planet-a-mor-testnet.vercel.app" class="btn btn-large" target="_blank" rel="noopener">
+      Open the Mini App
+      <span class="btn-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <img src="https://images.squarespace-cdn.com/content/v1/63ad5bf9b0350a10796c2a17/79178a19-5934-4662-92f2-e2dda1edd9ed/planeta+amor+isologotipo12-12.png?format=500w" alt="Planet-A-mor" />
+    <p>"Planting trees for climate &amp; people."</p>
+
+    <div class="footer-links">
+      <a href="https://www.planet-a-mor.org" target="_blank" rel="noopener">Main Site</a>
+      <a href="https://www.planet-a-mor.org/impact" target="_blank" rel="noopener">Impact</a>
+      <a href="https://www.planet-a-mor.org/contact" target="_blank" rel="noopener">Contact</a>
+      <a href="https://sepolia.basescan.org" target="_blank" rel="noopener">Basescan</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Copy-to-clipboard for all data cards
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.getAttribute('data-copy');
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1600);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

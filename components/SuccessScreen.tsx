@@ -77,12 +77,16 @@ export default function SuccessScreen() {
         </a>
       </div>
 
-      {/* NFT minting status */}
+      {/* NFT mint confirmation */}
       <div className="bg-white rounded-2xl p-5 mb-8 text-left border border-brand-text-dark/8 shadow-sm">
         <div className="flex items-center gap-3">
-          <span className="inline-block w-4 h-4 border-2 border-brand-green/30 border-t-brand-green rounded-full animate-spin" />
+          <span className="inline-flex items-center justify-center w-5 h-5 bg-brand-green/15 rounded-full shrink-0">
+            <svg className="w-3 h-3 text-brand-green" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="2 6 5 9 10 3" />
+            </svg>
+          </span>
           <p className="text-sm text-brand-text-dark">
-            Your Planet-A-mor NFT is being minted…
+            Your Planet-A-mor NFT has been minted to your wallet.
           </p>
         </div>
       </div>

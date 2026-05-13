@@ -3,7 +3,7 @@
 import { LINKS } from "@/lib/constants";
 
 interface LogoProps {
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   variant?: "light" | "dark";
   className?: string;
   linked?: boolean;
@@ -14,6 +14,7 @@ const SIZES = {
   sm: "h-8",
   md: "h-10",
   lg: "h-12",
+  xl: "h-28",
 } as const;
 
 /**

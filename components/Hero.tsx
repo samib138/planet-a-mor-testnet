@@ -9,11 +9,12 @@ import LeafParticles from "./LeafParticles";
 
 /**
  * Hero — full-bleed Amazon rainforest photo with:
- * - Dark gradient overlay (top 85% opacity → bottom 60%)
- * - Scroll-linked parallax on the image (0.3x scroll speed)
+ * - Dark gradient overlay
+ * - Scroll-linked parallax on the image
  * - Nav with logo, testnet badge, and "Built on Base" badge
  * - Headline in Fraunces, CTA button to scroll to donation
  * - Leaf particles for atmosphere
+ * - Fixed corner button linking to /onboarding.html
  */
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -29,7 +30,6 @@ export default function Hero() {
     document.getElementById("donate")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Parallax: image moves down at 0.3x scroll speed
   const parallaxY = scrollY * 0.3;
 
   return (
@@ -71,7 +71,7 @@ export default function Hero() {
       {/* Navigation */}
       <nav className="relative z-10 flex justify-between items-center px-6 sm:px-8 py-6">
         <div className="flex items-center gap-3">
-          <Logo size="md" variant="light" />
+          <Logo size="xl" variant="light" />
           <TestnetBadge variant="light" />
         </div>
         <BaseBadge variant="light" />
@@ -81,6 +81,17 @@ export default function Hero() {
       <div className="relative z-10 flex-1 flex flex-col justify-center items-center text-center px-6 pb-20">
         <p className="label-small text-white/60 mb-5 animate-fade-up" style={{ animationDelay: "0ms" }}>
           Peruvian Amazon · Reforestation
+        </p>
+
+        <p
+          className="font-display italic text-brand-green-soft text-4xl sm:text-5xl md:text-6xl leading-[1.02] mb-3 opacity-0"
+          style={{
+            fontVariationSettings: '"SOFT" 80',
+            fontWeight: 500,
+            animation: "fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.075s forwards",
+          }}
+        >
+          Planet-A-mor
         </p>
 
         <h1
@@ -129,6 +140,18 @@ export default function Hero() {
       >
         <div className="w-[1px] h-12 bg-gradient-to-b from-white/40 to-transparent mx-auto" />
       </div>
+
+      {/* Fixed onboarding button */}
+      <a
+        href="/onboarding.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 bg-brand-jungle/95 backdrop-blur-sm text-brand-cream px-5 py-3 rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 text-sm font-medium border border-white/10"
+      >
+        <span>📖</span>
+        <span>New here? Start here</span>
+        <span aria-hidden="true">→</span>
+      </a>
 
       {/* Organic bottom transition (vignette to next section) */}
       <div

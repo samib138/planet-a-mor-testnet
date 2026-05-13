@@ -3,24 +3,82 @@
 import { IMAGES } from "@/lib/constants";
 import Section from "./Section";
 
+// ─── Inline icons (Lucide-style, 1.5px stroke) ─────────────
+function GiftIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="3" y="8" width="18" height="4" rx="1" />
+      <path d="M12 8v13" />
+      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 8 12 8H7.5z" />
+      <path d="M16.5 8a2.5 2.5 0 0 0 0-5C15 3 12 8 12 8h4.5z" />
+    </svg>
+  );
+}
+
+function TreeIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M12 2 L17 10 L14 10 L19 18 L5 18 L10 10 L7 10 Z" />
+      <line x1="12" y1="18" x2="12" y2="22" />
+    </svg>
+  );
+}
+
+function PlaneIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M21 3 3 10l7 4 4 7 7-18z" />
+      <path d="M10 14l4-4" />
+    </svg>
+  );
+}
+
 const PRIZES = [
   {
-    image: IMAGES.story6,
-    icon: "🎁",
+    image: "/images/bannana.jpg",
+    Icon: GiftIcon,
     title: "Eco Discounts",
     desc: "Exclusive discounts on future tree packages and Planet-A-mor merchandise.",
     accent: "#4A7C2E",
   },
   {
-    image: IMAGES.story2,
-    icon: "🌳",
+    image: "/images/tree-3ladies.jpg",
+    Icon: TreeIcon,
     title: "Free Trees + ROI",
     desc: "Free tree packages with return on retail value. Your forest grows for free.",
     accent: "#6B9B4A",
   },
   {
-    image: IMAGES.story3,
-    icon: "✈️",
+    image: "/images/grand-prize.jpg",
+    Icon: PlaneIcon,
     title: "Trip to Peru 2026",
     desc: "Grand prize: 11-day Amazon expedition. Sail the river, walk among your trees, meet the Ashaninka.",
     accent: "#C49B2A",
@@ -68,9 +126,7 @@ export default function Prizes() {
                   background: "linear-gradient(to bottom, transparent 40%, rgba(17,18,16,0.6) 100%)",
                 }}
               />
-              <div className="absolute top-4 left-4 text-2xl bg-white/95 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center shadow-sm">
-                {prize.icon}
-              </div>
+              
               {prize.featured && (
                 <span className="absolute top-4 right-4 label-small bg-brand-gold text-white px-3 py-1 rounded-full">
                   Grand Prize

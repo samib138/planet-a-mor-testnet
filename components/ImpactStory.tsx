@@ -91,16 +91,27 @@ export default function ImpactStory() {
       {/* Callout */}
       <div className="max-w-[680px] mx-auto mt-16">
         <div
-          className="rounded-2xl px-8 py-7"
+          className="rounded-xl bg-white px-7 py-6 flex items-start gap-4"
           style={{
-            background: "linear-gradient(135deg, #FDF6E7 0%, #F7EDD3 100%)",
-            borderLeft: "3px solid #C49B2A",
+            borderLeft: "2px solid #6B9B4A",
+            boxShadow: "0 1px 2px rgba(17,18,16,0.04)",
           }}
         >
-          <p className="text-brand-text-dark leading-relaxed">
-            <span className="font-display text-xl mr-2" style={{ fontWeight: 600 }}>🎁</span>
-            Your $5 plants a tree <strong>AND</strong> enters you into our
-            on-chain raffle for eco prizes and an 11-day Amazon expedition.
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-5 h-5 mt-[3px] shrink-0 text-brand-green-soft"
+            aria-hidden="true"
+          >
+            <path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z" />
+            <path d="M13 5v3M13 11v2M13 16v3" />
+          </svg>
+          <p className="text-brand-text-dark leading-[1.7] text-[15px]">
+            Your $5 plants a tree <strong className="font-semibold">AND</strong> enters you into our on-chain raffle for eco prizes and an 11-day Amazon expedition.
           </p>
         </div>
       </div>
