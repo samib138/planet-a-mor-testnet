@@ -418,7 +418,7 @@ export default function Dashboard() {
                 </div>
                 <div className="mt-5 pt-5 border-t border-white/10">
                   <p className="text-sm text-white/65 leading-[1.65]">
-                    Winners selected on-chain Q1 2026 via Chainlink VRF —
+                    Winners selected on-chain Q4 2026 via Chainlink VRF —
                     verifiable, tamper-proof randomness. If you&apos;re selected,
                     we&apos;ll email the address on file.
                   </p>
