@@ -3,6 +3,7 @@ import {
   useAccount,
   useWriteContract,
   useReadContract,
+  usePublicClient,
 } from "wagmi";
 import { parseUnits, type Address } from "viem";
 import { DONATION_ABI, ERC20_ABI } from "@/contracts/abis";
@@ -33,6 +34,7 @@ export function useDonation() {
   } = useAppStore();
 
   const { writeContractAsync } = useWriteContract();
+  const publicClient = usePublicClient();
 
   const totalUsd = treeCount * TREE_PRICE_USD;
   const tokenConfig = STABLECOINS.find((t) => t.symbol === selectedToken.symbol)!;
@@ -81,12 +83,19 @@ export function useDonation() {
       const currentAllowance = allowance ?? BigInt(0);
       if (currentAllowance < amountInUnits) {
         setTxState("waiting-approve");
-        await writeContractAsync({
+        const approveTxHash = await writeContractAsync({
           address: tokenConfig.address as Address,
           abi: ERC20_ABI,
           functionName: "approve",
           args: [CONTRACTS.donation as Address, amountInUnits],
         });
+
+        // Wait for approve to be mined on-chain before donating.
+        // Without this, donate() runs while allowance is still 0 in the mempool
+        // and reverts with a misleading "exceeds max gas" error.
+        if (publicClient) {
+          await publicClient.waitForTransactionReceipt({ hash: approveTxHash });
+        }
       }
 
       // STEP 3: Donate — wallet popup
@@ -132,6 +141,7 @@ export function useDonation() {
     treeCount,
     tokenConfig,
     writeContractAsync,
+    publicClient,
     setTxState,
     setTxHash,
     setTxError,
