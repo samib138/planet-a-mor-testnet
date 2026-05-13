@@ -315,7 +315,7 @@ export default function Dashboard() {
                       {/* Token id — top-left, monospace, treated as serial */}
                       <div className="absolute top-3 left-3">
                         <span className="font-mono text-[10px] text-white/90 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-md tracking-wider uppercase">
-                          #{String(1000 + i).padStart(4, "0")}
+                          #{String(1 + i).padStart(4, "0")}
                         </span>
                       </div>
                       {/* Logo watermark — bottom-right */}
@@ -468,9 +468,9 @@ export default function Dashboard() {
 
               {/* Ashaninka story card — they are the protagonists */}
               <div className="glass-panel-dark border border-white/10 rounded-2xl overflow-hidden">
-                <div
+               <div
                   className="h-56 sm:h-64 bg-cover bg-center"
-                  style={{ backgroundImage: `url('${IMAGES.story5}')` }}
+                  style={{ backgroundImage: `url('/images/mother-child.jpg')` }}
                 />
                 <div className="p-6 sm:p-8">
                   <p className="label-small text-brand-green-soft mb-3">
