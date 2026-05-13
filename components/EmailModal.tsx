@@ -19,7 +19,7 @@ function looksLikeEmail(s: string): boolean {
 
 export default function EmailModal() {
   const store = useAppStore();
-  const { showEmailModal, setShowEmailModal, setEmailSubmitted, setUserEmail, userEmail, treeCount, txHash } = store;
+  const { showEmailModal, setShowEmailModal, setEmailSubmitted, setUserEmail, userEmail, treeCount, txHash, setShowDashboard } = store;
   const { address } = useAccount();
 
   const [email, setEmail] = useState("");
@@ -82,7 +82,15 @@ export default function EmailModal() {
     setConsentTerms(false);
     setError("");
   }
-
+function handleViewDashboard() {
+    setShowEmailModal(false);
+    setSubmitted(false);
+    setEmail("");
+    setConsentMarketing(false);
+    setConsentTerms(false);
+    setError("");
+    setShowDashboard(true);
+  }
   if (submitted) {
     return (
       <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-[1000] overflow-y-auto">
