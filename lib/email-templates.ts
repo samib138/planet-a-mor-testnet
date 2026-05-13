@@ -107,7 +107,7 @@ export function getUserConfirmationEmail({
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:24px;background-color:#FDF6E7;border-radius:12px;border-left:3px solid #C49B2A;">
           <tr><td style="padding:20px;">
             <p style="margin:0 0 4px;font-family:Georgia,serif;font-size:17px;color:#1A1F1B;font-weight:500;">🎟️ Your raffle entry is active</p>
-            <p style="margin:0;font-size:13px;line-height:1.65;color:#4A5249;">You're entered to win eco prizes plus an 11-day Amazon expedition. Winners announced Q1 2026 via Chainlink VRF.</p>
+            <p style="margin:0;font-size:13px;line-height:1.65;color:#4A5249;">You're entered to win eco prizes plus an 11-day Amazon expedition. Winners announced Q4 2026 via Chainlink VRF.</p>
           </td></tr>
         </table>
 
