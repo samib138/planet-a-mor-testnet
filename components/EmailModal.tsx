@@ -109,7 +109,13 @@ function handleViewDashboard() {
               </p>
             </div>
             <div className="p-6 bg-brand-cream/50">
-              <EmailPreview recipientEmail={userEmail || email} treeCount={treeCount} txHash={txHash} walletAddress={address} />
+              <EmailPreview
+                recipientEmail={userEmail || email}
+                treeCount={treeCount}
+                txHash={txHash}
+                walletAddress={address}
+                onDashboardClick={handleViewDashboard}
+              />
             </div>
             <div className="px-8 py-5 border-t border-brand-text-dark/5 flex items-center justify-between gap-4 bg-white rounded-b-3xl">
               <a href={LINKS.website} target="_blank" rel="noopener noreferrer" className="text-sm text-brand-green hover:text-brand-jungle underline transition-colors">
